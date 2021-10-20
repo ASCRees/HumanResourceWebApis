@@ -1,0 +1,127 @@
+﻿@using EmployeeViewModel;
+@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<EmployeeViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Human Resources</h2>
+
+<p>
+    <a href="@Url.Action("AddOrEdit","Employee")" class="btn btn-default"><i class="fa fa-plus"></i> Create New</a>
+</p>
+
+<table class="table table-striped">
+    <thead class="table-heading">
+        <tr>
+
+            <th>
+                Name
+            </th>
+            <th>
+                Position
+            </th>
+            <th>
+                Age
+            </th>
+            <th>
+                Salary
+            </th>
+            <th>
+                Status
+            </th>
+
+            <th>Department</th>
+            <th>Actions</th>
+        </tr>
+        <tr>
+
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+                @Html.DropDownList("Status", ViewBag.statusList as SelectList, new { @class = "form-control", @onchange = "CallStatusChange(this.value, $('#Departments').val())" })
+            </th>
+
+            <th>
+                @Html.DropDownList("Departments", ViewBag.departmentsList as SelectList, new { @class = "form-control", @onchange = "CallStatusChange($('#Status').val(),this.value)" })
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Salary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Department)
+            </td>
+            <td>
+                <a href="@Url.Action("AddOrEdit","Employee",new {id=item.EmployeeID})" class="btn btn-default"><i class="fa fa-pencil"></i> Edit</a>
+                <a onclick="Delete(@item.EmployeeID)" class="btn btn-default"><i class="fa fa-trash"></i> Delete</a>
+            </td>
+        </tr>
+    }
+</table>
+
+<div></div>
+Page @(Model.PageCount < Model.PageNumber ? 0: Model.PageNumber)/@Model.PageCount
+<div>
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, status = ViewBag.status, department = ViewBag.department }))
+
+    @*@Html.PagedListPager(Model, page =>
+        {
+            ViewBag.SearchModel.Page = page;
+            return Url.Action("Index", "Employee", ViewBag.SearchModel);
+        })*@
+</div>
+
+@section scripts {
+    <script>
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]'
+            if (successMessage != '') {
+                alertify.success(successMessage);
+            }
+        });
+
+        function Delete(id) {
+            alertify.confirm('Wep Api Crud Operations', 'Are you sure you want to delete this record?', function () {
+                window.location.href = '@Url.Action("Index","Employee")/' + id;
+            },null);
+        }
+
+        function CallStatusChange(status,department) {
+            console.log(status);
+            console.log(department);
+
+            window.location.href = '@Url.Action("Index","Employee")?page=1&status=' + status + '&department=' + department;
+        };
+
+        function CallDepartmentChange(id) {
+            console.log(id);
+        };
+    </script>
+}
