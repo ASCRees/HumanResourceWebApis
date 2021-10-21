@@ -5,8 +5,10 @@ namespace HumanResourcesWebApis.Services.Interfaces
 {
     public interface IBuildDepartmentsModelServices
     {
-        HRDatabaseEntities Context { get; }
+        HRDatabaseEntities1 Context { get; }
 
-        List<Department> GetDepartments();
+        List<Department> GetAllDepartments();
+
+        void DisposeContext();
     }
 }

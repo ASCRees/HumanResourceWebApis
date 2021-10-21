@@ -10,7 +10,7 @@ namespace Employees
 
         static GlobalVariables()
         {
-            WebApiclient.BaseAddress = new Uri("https://localhost:44328/api/");
+            WebApiclient.BaseAddress = new Uri("https://localhost:44383/api/");
             WebApiclient.DefaultRequestHeaders.Clear();
             WebApiclient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }

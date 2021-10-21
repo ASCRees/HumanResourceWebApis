@@ -19,8 +19,10 @@ namespace HumanResourceWebApis.App_Start
                 cfg.CreateMap<Employee, EmployeeViewModel>();
                 cfg.CreateMap<EmployeeViewModel, Employee>();
                 cfg.CreateMap<vwEmployee, VwEmployeeViewModel>();
-                cfg.CreateMap<Department, Department>();
-                cfg.CreateMap<Status, Status>();
+                cfg.CreateMap<Department, DepartmentViewModel>();
+                cfg.CreateMap<DepartmentViewModel, Department>();
+                cfg.CreateMap<Status, StatusViewModel>();
+                cfg.CreateMap<StatusViewModel, Status>();
             });
         }
     }

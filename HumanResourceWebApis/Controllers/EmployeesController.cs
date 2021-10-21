@@ -16,25 +16,25 @@ using HumanResourcesWebApis.DataLayer;
 
 namespace HumanResourceWebApis.Controllers
 {
-    public class HumanResourcesController : ApiController
+    public class EmployeesController : ApiController
     {
         private IBuildEmployeesModelServices _buildEmployeesModelServices;
 
         [DefaultConstructor]
-        public HumanResourcesController(IBuildEmployeesModelServices buildEmployeesModelServices)
+        public EmployeesController(IBuildEmployeesModelServices buildEmployeesModelServices)
         {
             _buildEmployeesModelServices = buildEmployeesModelServices;
         }
 
-        //GET: api/Employees
+        //GET: api/HumanResources
 
-        public IQueryable<EmployeeViewModel> GetEmployees()
+        public IQueryable<VwEmployeeViewModel> GetEmployees()
         {
-            var emps = Mapper.Map<List<VwEmployeeViewModel>>(_buildEmployeesModelServices.GetAllEmployees());
+            List<VwEmployeeViewModel> emps = Mapper.Map<List<VwEmployeeViewModel>>(_buildEmployeesModelServices.GetAllEmployees());
             return emps.AsQueryable();
         }
 
-        // GET: api/Employees/5
+        // GET: api/HumanResources/5
         [ResponseType(typeof(EmployeeViewModel))]
         public IHttpActionResult GetEmployee(int id)
         {
@@ -47,11 +47,11 @@ namespace HumanResourceWebApis.Controllers
             return Ok(employee);
         }
 
-        // PUT: api/Employees/5
+        // PUT: api/HumanResources/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutEmployee(int id, EmployeeViewModel employee)
         {
-            if (id != employee.Id)
+            if (id != employee.EmployeeId)
             {
                 return BadRequest();
             }
@@ -62,7 +62,7 @@ namespace HumanResourceWebApis.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!_buildEmployeesModelServices.EmployeeExists(employee.Id))
+                if (!_buildEmployeesModelServices.EmployeeExists(employee.EmployeeId))
                 {
                     return NotFound();
                 }
@@ -74,16 +74,16 @@ namespace HumanResourceWebApis.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Employees
+        // POST: api/HumanResources
         [ResponseType(typeof(EmployeeViewModel))]
         public IHttpActionResult PostEmployee(EmployeeViewModel employee)
         {
             _buildEmployeesModelServices.CreateEmployee(Mapper.Map<Employee>(employee));
 
-            return CreatedAtRoute("DefaultApi", new { id = employee.Id }, employee);
+            return CreatedAtRoute("DefaultApi", new { id = employee.EmployeeId }, employee);
         }
 
-        // DELETE: api/Employees/5
+        // DELETE: api/HumanResources/5
         [ResponseType(typeof(EmployeeViewModel))]
         public IHttpActionResult DeleteEmployee(int id)
         {

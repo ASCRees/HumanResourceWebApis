@@ -34,7 +34,7 @@ namespace HumanResourcesWebApis.Services
 
         public bool EmployeeExists(int id)
         {
-            return Context.Employees.Count(e => e.Id.Equals(id)) > 0;
+            return Context.Employees.Count(e => e.EmployeeId.Equals(id)) > 0;
         }
 
         public List<vwEmployee> GetListOfEmployeesByFilter(int statusId, int departmentId)
@@ -62,14 +62,14 @@ namespace HumanResourcesWebApis.Services
         public Employee GetEmployeeById(int Id)
         {
             return Context.Employees
-                               .Where(s => s.Id.Equals(Id))
+                               .Where(s => s.EmployeeId.Equals(Id))
                                .FirstOrDefault<Employee>();
         }
 
         public vwEmployee GetvwEmployeeById(int Id)
         {
             return Context.vwEmployees
-                               .Where(s => s.Id.Equals(Id))
+                               .Where(s => s.EmployeeId.Equals(Id))
                                .FirstOrDefault<vwEmployee>();
         }
 

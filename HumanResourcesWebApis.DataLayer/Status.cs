@@ -20,8 +20,8 @@ namespace HumanResourcesWebApis.DataLayer
             this.Employees = new HashSet<Employee>();
         }
     
-        public int Id { get; set; }
-        public string Status1 { get; set; }
+        public int StatusId { get; set; }
+        public string StatusName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee> Employees { get; set; }

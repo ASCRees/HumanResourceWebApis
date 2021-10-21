@@ -5,15 +5,15 @@ namespace HumanResourcesWebApis.Services
 {
     public class BuildModelServicesBase : DbContext
     {
-        private HRDatabaseEntities _context;
+        private HRDatabaseEntities1 _context;
 
-        public HRDatabaseEntities Context
+        public HRDatabaseEntities1 Context
         {
             get
             {
                 if (_context == null)
                 {
-                    _context = new HRDatabaseEntities();
+                    _context = new HRDatabaseEntities1();
                 }
                 return _context;
             }

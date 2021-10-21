@@ -4,119 +4,72 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Web.Mvc;
-using System.Collections;
 
 namespace Employees.Controllers
 {
     public class EmployeeController : Controller
     {
         // GET: Employee
-        public ActionResult Index(int? page, string status, string department)
+        public ActionResult Index(string sortOrder, int? page, int? status, int? department, int? itemsperpage = 5)
         {
             var pageNumber = page ?? 1;
-            var pageSize = 2;
+            var pageSize = (int)itemsperpage;
 
-            IEnumerable<EmployeeViewModel> empList;
+            IEnumerable<VwEmployeeViewModel> empList;
             HttpResponseMessage response = GlobalVariables.WebApiclient.GetAsync("Employees").Result;
-            empList = response.Content.ReadAsAsync<IEnumerable<EmployeeViewModel>>().Result;
+            empList = response.Content.ReadAsAsync<IEnumerable<VwEmployeeViewModel>>().Result;
 
-            var statusList = CreateStatusFilterOptions(status);
-            var departmentList = CreateDepartmentsFilterOptions(department);
-
-            ViewBag.statusList = statusList;
-            ViewBag.departmentsList = departmentList;
+            ViewBag.statusList = CreateStatusFilterOptions(status);
+            ViewBag.departmentsList = CreateDepartmentsFilterOptions(department);
             ViewBag.status = status;
             ViewBag.department = department;
+            ViewBag.itemsperpage = itemsperpage;
 
-            if (!string.IsNullOrWhiteSpace(status))
+            if (status > 0)
             {
-                var statusItems = statusList.Items.Cast<SelectListItem>().ToList();
-
-                var statusText = statusItems.FirstOrDefault(c => c.Value.Equals(status));
-
-                empList = empList.Where(c => c.Status != null && c.Status.Equals(statusText.Text));
+                empList = empList.Where(c => c.StatusID.Equals(status));
             }
 
-            if (!string.IsNullOrWhiteSpace(department))
+            if (department > 0)
             {
-                var departmentItems = departmentList.Items.Cast<SelectListItem>().ToList();
-
-                var departmentText = departmentItems.FirstOrDefault(c => c.Value.Equals(department));
-
-                empList = empList.Where(c => c.Department != null && c.Department.Equals(departmentText.Text));
+                empList = empList.Where(c => c.DepartmentID.Equals(department));
             }
 
-            return View(empList.OrderBy(x => x.Name).ToPagedList(pageNumber, pageSize));
+            return View(empList.OrderBy(x => x.SurName).ToPagedList(pageNumber, pageSize));
         }
 
-        private SelectList CreateStatusFilterOptions(string status)
+        private SelectList CreateStatusFilterOptions(int? status)
         {
-            List<SelectListItem> list = new List<SelectListItem>();
+            List<StatusViewModel> statusList = new List<StatusViewModel>(){ new StatusViewModel()
+            {
+                StatusId = 0,
+                StatusName = ""
+            } };
 
-            list.Add(new SelectListItem()
-            {
-                Text = "",
-                Value = ""
-            });
-            list.Add(new SelectListItem()
-            {
-                Text = "Senior",
-                Value = "S"
-            });
-            list.Add(new SelectListItem()
-            {
-                Text = "Mid Level",
-                Value = "M"
-            });
-            list.Add(new SelectListItem()
-            {
-                Text = "Junior",
-                Value = "J"
-            });
-            list.Add(new SelectListItem()
-            {
-                Text = "Advanced",
-                Value = "A"
-            });
+            HttpResponseMessage response = GlobalVariables.WebApiclient.GetAsync("Status").Result;
+            statusList.AddRange(response.Content.ReadAsAsync<IEnumerable<StatusViewModel>>().Result.ToList());
 
-            return new SelectList(list, "Value", "Text", status);
+            return new SelectList(statusList, "StatusId", "StatusName", status);
         }
 
-        private SelectList CreateDepartmentsFilterOptions(string department)
+        private SelectList CreateDepartmentsFilterOptions(int? department)
         {
-            List<SelectListItem> list = new List<SelectListItem>();
+            List<DepartmentViewModel> departmentList = new List<DepartmentViewModel>() { new DepartmentViewModel()
+            {
+                DepartmentId = 0,
+                DepartmentName = ""
+            }};
 
-            list.Add(new SelectListItem()
-            {
-                Text = "",
-                Value = ""
-            });
-            list.Add(new SelectListItem()
-            {
-                Text = "IT",
-                Value = "I"
-            });
-            list.Add(new SelectListItem()
-            {
-                Text = "Marketing",
-                Value = "M"
-            });
-            list.Add(new SelectListItem()
-            {
-                Text = "Administration",
-                Value = "A"
-            });
-            list.Add(new SelectListItem()
-            {
-                Text = "Sales",
-                Value = "S"
-            });
+            HttpResponseMessage response = GlobalVariables.WebApiclient.GetAsync("Departments").Result;
+            departmentList.AddRange(response.Content.ReadAsAsync<IEnumerable<DepartmentViewModel>>().Result.ToList());
 
-            return new SelectList(list, "Value", "Text", department);
+            return new SelectList(departmentList, "DepartmentId", "DepartmentName", department);
         }
 
         public ActionResult AddOrEdit(int id = 0)
         {
+            ViewBag.statusList = CreateStatusFilterOptions(0);
+            ViewBag.departmentsList = CreateDepartmentsFilterOptions(0);
             if (id.Equals(0))
             {
                 return View(new EmployeeViewModel());
@@ -129,14 +82,14 @@ namespace Employees.Controllers
         [HttpPost]
         public ActionResult AddOrEdit(EmployeeViewModel emp)
         {
-            if (emp.EmployeeID.Equals(0))
+            if (emp.EmployeeId.Equals(0))
             {
                 HttpResponseMessage newResponse = GlobalVariables.WebApiclient.PostAsJsonAsync("Employees", emp).Result;
                 TempData["SuccessMessage"] = "Saved Successfully";
                 return RedirectToAction("Index");
             }
 
-            HttpResponseMessage updateResponse = GlobalVariables.WebApiclient.PutAsJsonAsync("Employees/" + emp.EmployeeID, emp).Result;
+            HttpResponseMessage updateResponse = GlobalVariables.WebApiclient.PutAsJsonAsync("Employees/" + emp.EmployeeId, emp).Result;
             TempData["SuccessMessage"] = "Updated Successfully";
             return RedirectToAction("Index");
         }

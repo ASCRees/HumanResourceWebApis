@@ -119,9 +119,9 @@
       <Project>{5C8A55F8-4A45-4E87-BFD4-E5EFF257BD8A}</Project>
       <Name>HumanResourcesWebApis.Services</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HumanResourceWebApis\HumanResourceWebApis.csproj">
+    <ProjectReference Include="..\HumanResourceWebApis\HumanResourcesWebApis.csproj">
       <Project>{42104157-BEBF-4F0B-9F9D-3180F4CD1EA3}</Project>
-      <Name>HumanResourceWebApis</Name>
+      <Name>HumanResourcesWebApis</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

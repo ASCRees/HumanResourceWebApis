@@ -7,9 +7,14 @@ namespace HumanResourcesWebApis.Services
 {
     public class BuildStatusModelServices : BuildModelServicesBase, IBuildStatusModelServices
     {
-        public List<Status> GetStatus()
+        public List<Status> GetAllStatus()
         {
             return Context.Status.ToList();
+        }
+
+        public void DisposeContext()
+        {
+            base.Dispose();
         }
     }
 }

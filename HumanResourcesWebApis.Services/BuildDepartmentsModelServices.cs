@@ -7,9 +7,14 @@ namespace HumanResourcesWebApis.Services
 {
     public class BuildDepartmentsModelServices : BuildModelServicesBase, IBuildDepartmentsModelServices
     {
-        public List<Department> GetDepartments()
+        public List<Department> GetAllDepartments()
         {
             return Context.Departments.ToList();
+        }
+
+        public void DisposeContext()
+        {
+            base.Dispose();
         }
     }
 }

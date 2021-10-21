@@ -14,7 +14,7 @@ namespace HumanResourcesWebApis.DataLayer
     
     public partial class Employee
     {
-        public int Id { get; set; }
+        public int EmployeeId { get; set; }
         public string FirstName { get; set; }
         public string SurName { get; set; }
         public string Email { get; set; }

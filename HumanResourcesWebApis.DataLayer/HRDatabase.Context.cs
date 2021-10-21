@@ -13,10 +13,10 @@ namespace HumanResourcesWebApis.DataLayer
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class HRDatabaseEntities : DbContext
+    public partial class HRDatabaseEntities1 : DbContext
     {
-        public HRDatabaseEntities()
-            : base("name=HRDatabaseEntities")
+        public HRDatabaseEntities1()
+            : base("name=HRDatabaseEntities1")
         {
         }
     

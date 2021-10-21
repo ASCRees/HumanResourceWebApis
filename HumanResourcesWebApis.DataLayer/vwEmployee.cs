@@ -14,15 +14,15 @@ namespace HumanResourcesWebApis.DataLayer
     
     public partial class vwEmployee
     {
-        public int Id { get; set; }
+        public int EmployeeId { get; set; }
         public string FirstName { get; set; }
         public string SurName { get; set; }
         public string Email { get; set; }
         public Nullable<System.DateTime> DateOfBirth { get; set; }
-        public string Department { get; set; }
-        public string Status { get; set; }
-        public string EmployeeNumber { get; set; }
         public int DepartmentID { get; set; }
+        public string DepartmentName { get; set; }
         public int StatusID { get; set; }
+        public string StatusName { get; set; }
+        public string EmployeeNumber { get; set; }
     }
 }

@@ -5,8 +5,10 @@ namespace HumanResourcesWebApis.Services.Interfaces
 {
     public interface IBuildStatusModelServices
     {
-        HRDatabaseEntities Context { get; }
+        HRDatabaseEntities1 Context { get; }
 
-        List<Status> GetStatus();
+        List<Status> GetAllStatus();
+
+        void DisposeContext();
     }
 }
