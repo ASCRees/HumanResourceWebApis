@@ -19,7 +19,7 @@
         <input type="number" min="2" max="20" value="@ViewBag.itemsperpage" id="ResultsPerPage" style="color: black; margin-top: 2px; margin-right: 5px;" />
     </div>
     <div style="float: left;">
-        <input type="button" value="Refresh Page" onclick="CallFilterChange($('#ResultsPerPage').val(), $('#Status').val(),$('#Department').val())" class="btn button" style=" padding: 5px;" />
+        <input type="button" value="Refresh Page" onclick="CallFilterChange('@ViewBag.sortorder',$('#ResultsPerPage').val(), $('#Status').val(),$('#Department').val())" class="btn button" style=" padding: 5px;" />
     </div>
 </div>
 
@@ -27,11 +27,11 @@
     <thead class="table-heading">
         <tr>
             <th>First Name</th>
-            <th><a href="">Surname</a></th>
+            <th><a href="javascript:SortData('N');">Surname</a></th>
             <th>Email</th>
             <th>Date of Birth</th>
-            <th>Department</th>
-            <th>Status</th>
+            <th><a href="javascript:SortData('D');">Department</a></th>
+            <th><a href="javascript:SortData('S');">Status</a></th>
             <th>Employee Number</th>
             <th colspan="2">Actions</th>
         </tr>
@@ -39,10 +39,10 @@
 
             <th colspan="4" />
             <th>
-                @Html.DropDownList("Departments", ViewBag.departmentsList as SelectList, new { @class = "form-control", @onchange = "CallFilterChange($('#ResultsPerPage').val(),$('#Status').val(),this.value)" })
+                @Html.DropDownList("Departments", ViewBag.departmentsList as SelectList, new { @class = "form-control", @onchange = "CallFilterChange('"+@ViewBag.sortorder+"',$('#ResultsPerPage').val(),$('#Status').val(),this.value)" })
             </th>
             <th>
-                @Html.DropDownList("Status", ViewBag.statusList as SelectList, new { @class = "form-control", @onchange = "CallFilterChange($('#ResultsPerPage').val(),this.value, $('#Departments').val())" })
+                @Html.DropDownList("Status", ViewBag.statusList as SelectList, new { @class = "form-control", @onchange = "CallFilterChange('" + @ViewBag.sortorder + "',$('#ResultsPerPage').val(),this.value, $('#Departments').val())" })
             </th>
             <th colspan="3" />
         </tr>
@@ -71,7 +71,7 @@
 <div></div>
     Page @(Model.PageCount < Model.PageNumber ? 0: Model.PageNumber)/@Model.PageCount
     <div>
-        @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, status = ViewBag.status, department = ViewBag.department }))
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, sortorder = ViewBag.sortorder, itemsperpage = ViewBag.itemsperpage, status = ViewBag.status, department = ViewBag.department }))
     </div>
 
     @section scripts {
@@ -87,15 +87,21 @@
             alertify.confirm('Delete Employee', 'Are you sure you want to delete this employee?', function () {
                 window.location.href = '@Url.Action("Delete","Employee")/' + id;
             },null);
-        }
+            };
 
-        function SortData()
+        function SortData(sortorder) {
+            console.log(sortorder);
+            CallFilterChange(sortorder, $('#ResultsPerPage').val(), $('#Status').val(), $('#Departments').val());
+        };
 
-        function CallFilterChange(itemsperpage,status,department) {
+        function CallFilterChange(sortorder,itemsperpage,status,department) {
+            console.log(sortorder);
+            console.log(itemsperpage);
             console.log(status);
             console.log(department);
+            /*CallFilterChange(sortorder, $('#ResultsPerPage').val(), $('#Status').val(), $('#Departments').val());*/
 
-            window.location.href = `@Url.Action("Index","Employee")?page=1&itemsperpage=${itemsperpage}&status=${status}&department=${department}`;
+            window.location.href = `@Url.Action("Index","Employee")?page=1&sortorder=${sortorder}&itemsperpage=${itemsperpage}&status=${status}&department=${department}`;
         };
 
         function CallDepartmentChange(id) {

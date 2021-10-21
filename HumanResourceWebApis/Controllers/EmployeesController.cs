@@ -1,18 +1,14 @@
-﻿using HumanResourcesWebApis.Services.Interfaces;
+﻿using AutoMapper;
+using HumanResourcesWebApis.DataLayer;
+using HumanResourcesWebApis.Services.Interfaces;
 using HumanResourceWebApis.Models;
 using StructureMap;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using AutoMapper;
-using System.Web.Http.Description;
-using System.Web.Http;
-using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Linq;
 using System.Net;
-using HumanResourcesWebApis.DataLayer;
+using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace HumanResourceWebApis.Controllers
 {

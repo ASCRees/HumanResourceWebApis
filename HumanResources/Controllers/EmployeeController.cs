@@ -10,20 +10,28 @@ namespace Employees.Controllers
     public class EmployeeController : Controller
     {
         // GET: Employee
-        public ActionResult Index(string sortOrder, int? page, int? status, int? department, int? itemsperpage = 5)
+        public ActionResult Index(int? page, int? status, int? department, int? itemsperpage = 5, string sortOrder = "N")
         {
             var pageNumber = page ?? 1;
             var pageSize = (int)itemsperpage;
-
-            IEnumerable<VwEmployeeViewModel> empList;
-            HttpResponseMessage response = GlobalVariables.WebApiclient.GetAsync("Employees").Result;
-            empList = response.Content.ReadAsAsync<IEnumerable<VwEmployeeViewModel>>().Result;
 
             ViewBag.statusList = CreateStatusFilterOptions(status);
             ViewBag.departmentsList = CreateDepartmentsFilterOptions(department);
             ViewBag.status = status;
             ViewBag.department = department;
             ViewBag.itemsperpage = itemsperpage;
+            ViewBag.sortOrder = sortOrder;
+
+            IEnumerable<VwEmployeeViewModel> employeeList = BuildEmployeeList(sortOrder, status, department);
+
+            return View(employeeList.ToPagedList(pageNumber, pageSize));
+        }
+
+        private static IEnumerable<VwEmployeeViewModel> BuildEmployeeList(string sortOrder, int? status, int? department)
+        {
+            IEnumerable<VwEmployeeViewModel> empList;
+            HttpResponseMessage response = GlobalVariables.WebApiclient.GetAsync("Employees").Result;
+            empList = response.Content.ReadAsAsync<IEnumerable<VwEmployeeViewModel>>().Result;
 
             if (status > 0)
             {
@@ -35,7 +43,26 @@ namespace Employees.Controllers
                 empList = empList.Where(c => c.DepartmentID.Equals(department));
             }
 
-            return View(empList.OrderBy(x => x.SurName).ToPagedList(pageNumber, pageSize));
+            switch (sortOrder)
+            {
+                case "N":
+                    empList = empList.OrderBy(x => x.SurName);
+                    break;
+
+                case "D":
+                    empList = empList.OrderBy(x => x.DepartmentName);
+                    break;
+
+                case "S":
+                    empList = empList.OrderBy(x => x.StatusName);
+                    break;
+
+                default:
+                    empList = empList.OrderBy(x => x.EmployeeNumber);
+                    break;
+            }
+
+            return empList;
         }
 
         private SelectList CreateStatusFilterOptions(int? status)
