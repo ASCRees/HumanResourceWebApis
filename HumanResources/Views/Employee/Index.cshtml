@@ -8,7 +8,7 @@
 
 <p />
 <p>
-    <a href="@Url.Action("AddOrEdit","Employee")" class="btn btn-default"><i class="fa fa-plus"></i> Create New</a>
+    <a href="@Url.Action("AddOrEdit","Employee")" class="btn btn-default"><i class="fa fa-plus"></i> Add</a>
 </p>
 
 <div class="Row">
@@ -26,20 +26,18 @@
 <table class="table table-striped">
     <thead class="table-heading">
         <tr>
-            <th>First Name</th>
-            <th><a href="javascript:SortData('N');">Surname</a></th>
-            <th>Email</th>
+            <th><a href="javascript:SortData('N');">Resource Name</th>
             <th>Date of Birth</th>
-            <th><a href="javascript:SortData('D');">Department</a></th>
+            <th><a href="javascript:SortData('D');">Department Name</a></th>
             <th><a href="javascript:SortData('S');">Status</a></th>
             <th>Employee Number</th>
             <th colspan="2">Actions</th>
         </tr>
         <tr>
 
-            <th colspan="4" />
+            <th colspan="2" />
             <th>
-                @Html.DropDownList("Departments", ViewBag.departmentsList as SelectList, new { @class = "form-control", @onchange = "CallFilterChange('"+@ViewBag.sortorder+"',$('#ResultsPerPage').val(),$('#Status').val(),this.value)" })
+                @Html.DropDownList("Departments", ViewBag.departmentsList as SelectList, new { @class = "form-control", @onchange = "CallFilterChange('" + @ViewBag.sortorder + "',$('#ResultsPerPage').val(),$('#Status').val(),this.value)" })
             </th>
             <th>
                 @Html.DropDownList("Status", ViewBag.statusList as SelectList, new { @class = "form-control", @onchange = "CallFilterChange('" + @ViewBag.sortorder + "',$('#ResultsPerPage').val(),this.value, $('#Departments').val())" })
@@ -51,9 +49,7 @@
     {
         <tr>
 
-            <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
-            <td>@Html.DisplayFor(modelItem => item.SurName)</td>
-            <td style="width:240px;">@Html.DisplayFor(modelItem => item.Email)</td>
+            <td>@Html.DisplayFor(modelItem => item.FullName)</td>
             <td style="width:100px;">@Html.DisplayFor(modelItem => item.DateOfBirth)</td>
             <td>@Html.DisplayFor(modelItem => item.DepartmentName)</td>
             <td>@Html.DisplayFor(modelItem => item.StatusName)</td>
