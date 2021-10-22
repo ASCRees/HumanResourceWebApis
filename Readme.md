@@ -5,8 +5,8 @@ This is a simple MVC application that allows the user to view a list of employee
 
 This has been built in a set of layers using both a front end MVC project as well as a set of Web Apis that in turn use a service and datalayer.
 
-Access to the database is achieved via Entity Framework. the database is included in the project as an attached MDF file. There is also a SQL script to create the database if
-it was required called DatabaseCreation.sql. If a seperate database was used then the connection string in the App.config will need to be amended to point to the relevant location.
+Access to the database is achieved via Entity Framework. The database is included in the project as an attached MDF file. There is also a SQL script to create the database if
+it was required, called DatabaseCreation.sql. If a seperate database was used then the connection string in the App.config will need to be amended to point to the relevant location.
 
 Unit testing is performed using XUnit and demonstrates the use of the MOQ framework. 
 
@@ -40,7 +40,7 @@ The web apis use swagger to document and make them visible within a browser.
 3. Add a search function to search by name
 
 ## Troubleshooting
-If comiling gives an error related to SQl server make sure there is not a SQL Server process already running. If so terminate it.
+If compiling gives an error related to SQl server, make sure there is not a SQL Server process already running. If so terminate it.
 
 ## Screenshots
 ![image](https://user-images.githubusercontent.com/28151071/138509265-4749a861-550d-4aaa-8e5a-0ad01fa5c243.png)
