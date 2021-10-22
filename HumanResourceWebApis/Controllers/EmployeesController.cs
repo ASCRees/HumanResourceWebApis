@@ -3,6 +3,7 @@ using HumanResourcesWebApis.DataLayer;
 using HumanResourcesWebApis.Services.Interfaces;
 using HumanResourceWebApis.Models;
 using StructureMap;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace HumanResourceWebApis.Controllers
 {
     public class EmployeesController : ApiController
     {
+        internal static readonly log4net.ILog Log = log4net.LogManager.GetLogger(typeof(EmployeesController));
+
         private IBuildEmployeesModelServices _buildEmployeesModelServices;
 
         [DefaultConstructor]
@@ -34,13 +37,21 @@ namespace HumanResourceWebApis.Controllers
         [ResponseType(typeof(EmployeeViewModel))]
         public IHttpActionResult GetEmployee(int id)
         {
-            EmployeeViewModel employee = Mapper.Map<EmployeeViewModel>(_buildEmployeesModelServices.GetEmployeeById(id));
-            if (employee == null)
+            try
             {
-                return NotFound();
-            }
+                EmployeeViewModel employee = Mapper.Map<EmployeeViewModel>(_buildEmployeesModelServices.GetEmployeeById(id));
+                if (employee == null)
+                {
+                    return NotFound();
+                }
 
-            return Ok(employee);
+                return Ok(employee);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+                return BadRequest();
+            }
         }
 
         // PUT: api/HumanResources/5
@@ -56,7 +67,7 @@ namespace HumanResourceWebApis.Controllers
             {
                 _buildEmployeesModelServices.UpdateEmployee(id, Mapper.Map<Employee>(employee));
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException ex)
             {
                 if (!_buildEmployeesModelServices.EmployeeExists(employee.EmployeeId))
                 {
@@ -64,6 +75,7 @@ namespace HumanResourceWebApis.Controllers
                 }
                 else
                 {
+                    Log.Error(ex);
                     throw;
                 }
             }
@@ -74,20 +86,36 @@ namespace HumanResourceWebApis.Controllers
         [ResponseType(typeof(EmployeeViewModel))]
         public IHttpActionResult PostEmployee(EmployeeViewModel employee)
         {
-            _buildEmployeesModelServices.CreateEmployee(Mapper.Map<Employee>(employee));
+            try
+            {
+                _buildEmployeesModelServices.CreateEmployee(Mapper.Map<Employee>(employee));
 
-            return CreatedAtRoute("DefaultApi", new { id = employee.EmployeeId }, employee);
+                return CreatedAtRoute("DefaultApi", new { id = employee.EmployeeId }, employee);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+                return BadRequest();
+            }
         }
 
         // DELETE: api/HumanResources/5
         [ResponseType(typeof(EmployeeViewModel))]
         public IHttpActionResult DeleteEmployee(int id)
         {
-            EmployeeViewModel employeeViewModel = Mapper.Map<EmployeeViewModel>(_buildEmployeesModelServices.GetEmployeeById(id));
+            try
+            {
+                EmployeeViewModel employeeViewModel = Mapper.Map<EmployeeViewModel>(_buildEmployeesModelServices.GetEmployeeById(id));
 
-            _buildEmployeesModelServices.DeleteEmployee(id);
+                _buildEmployeesModelServices.DeleteEmployee(id);
 
-            return Ok(employeeViewModel);
+                return Ok(employeeViewModel);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+                return BadRequest();
+            }
         }
 
         protected override void Dispose(bool disposing)

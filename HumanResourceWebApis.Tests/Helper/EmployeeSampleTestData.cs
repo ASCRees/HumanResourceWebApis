@@ -44,7 +44,23 @@ namespace HumanResourceWebApis.Tests.Helper
         },
         };
 
-        public static vwEmployee CreateEmployee()
+        public static Employee CreateEmployee(int id)
+        {
+            var faker = new Faker("en");
+
+            return new Employee()
+            {
+                EmployeeId = id,
+                FirstName = faker.Person.FirstName,
+                SurName = faker.Person.LastName,
+                DateOfBirth = faker.Person.DateOfBirth,
+                DepartmentID = faker.PickRandom(DepartmentList).DepartmentId,
+                StatusID = faker.PickRandom(StatusList).StatusId,
+                EmployeeNumber = "A" + faker.Random.Int(0, 500)
+            };
+        }
+
+        public static vwEmployee CreatevwEmployee(int id)
         {
             var faker = new Faker("en");
 
@@ -53,7 +69,7 @@ namespace HumanResourceWebApis.Tests.Helper
 
             return new vwEmployee()
             {
-                EmployeeId = faker.Random.Int(0, 500),
+                EmployeeId = id,
                 FirstName = faker.Person.FirstName,
                 SurName = faker.Person.LastName,
                 DateOfBirth = faker.Person.DateOfBirth,
@@ -65,15 +81,13 @@ namespace HumanResourceWebApis.Tests.Helper
             };
         }
 
-        public static List<vwEmployee> CreateMultipleEmployees(int numberOfEmployees)
+        public static List<vwEmployee> CreateMultiplevwEmployees(int numberOfEmployees)
         {
-            var faker = new Faker("en");
-
             List<vwEmployee> employeesList = new List<vwEmployee>();
 
             for (int i = 0; i < numberOfEmployees; i++)
             {
-                employeesList.Add(CreateEmployee());
+                employeesList.Add(CreatevwEmployee(i));
             }
 
             return employeesList;

@@ -19,7 +19,7 @@ namespace HumanResourceWebApis.Tests.Controllers
 
         public void Dispose()
         {
-            // Do "global" teardown here; Only called once.
+            // Globally dispose
         }
     }
 }

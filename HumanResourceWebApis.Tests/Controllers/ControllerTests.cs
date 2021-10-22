@@ -4,10 +4,17 @@ using HumanResourceWebApis.App_Start;
 using HumanResourceWebApis.Controllers;
 using HumanResourceWebApis.Tests.Base;
 using HumanResourceWebApis.Tests.Helper;
+using HumanResourceWebApis.Models;
 using Moq;
 using System.Diagnostics.CodeAnalysis;
 using Xunit;
 using System.Linq;
+using System.Collections.Generic;
+using HumanResourcesWebApis.DataLayer;
+using System.Web.Http;
+using System.Web.Http.Results;
+using FluentAssertions.Execution;
+using System.Net;
 
 namespace HumanResourceWebApis.Tests.Controllers
 {
@@ -41,10 +48,10 @@ namespace HumanResourceWebApis.Tests.Controllers
         }
 
         [Fact]
-        public void Get_Employees()
+        public void GetEmployeesReturnsMultipleRecords()
         {
             // Arrange
-            var employeesList = EmployeeSampleTestData.CreateMultipleEmployees(5);
+            var employeesList = EmployeeSampleTestData.CreateMultiplevwEmployees(5);
 
             _mockBuildEmployeesModelServices.Setup(c => c.GetAllEmployees()).Returns(employeesList);
 
@@ -55,6 +62,64 @@ namespace HumanResourceWebApis.Tests.Controllers
 
             // Assert
             employeeViewModels.Should().HaveCount(5);
+        }
+
+        [Fact]
+        public void GetEmployeesReturnsNoRecords()
+        {
+            // Arrange
+            List<vwEmployee> employeesList = new List<vwEmployee>();
+
+            _mockBuildEmployeesModelServices.Setup(c => c.GetAllEmployees()).Returns(employeesList);
+
+            EmployeesController employeeController = new EmployeesController(_mockBuildEmployeesModelServices.Object);
+
+            // Act
+            IQueryable<Models.VwEmployeeViewModel> employeeViewModels = employeeController.GetEmployees();
+
+            // Assert
+            employeeViewModels.Should().HaveCount(0);
+        }
+
+        [Fact]
+        public void GetSingleEmployeeByIdReturnsRecord()
+        {
+            // Arrange
+            int employeeid = 1;
+            Employee employee = EmployeeSampleTestData.CreateEmployee(1);
+
+            _mockBuildEmployeesModelServices.Setup(c => c.GetEmployeeById(1)).Returns(employee);
+
+            EmployeesController employeeController = new EmployeesController(_mockBuildEmployeesModelServices.Object);
+
+            // Act
+            var employeeResult = employeeController.GetEmployee(employeeid);
+
+            // Assert
+            using (new AssertionScope())
+            {
+                OkNegotiatedContentResult<EmployeeViewModel> result = Assert.IsType<OkNegotiatedContentResult<EmployeeViewModel>>(employeeResult);
+                (result.Content).EmployeeId.Should().Be(1);
+            }
+        }
+
+        [Fact]
+        public void GetSingleEmployeeByIdNotFound()
+        {
+            // Arrange
+            int employeeid = 1;
+            Employee employee = EmployeeSampleTestData.CreateEmployee(1);
+
+            _mockBuildEmployeesModelServices.Setup(c => c.GetEmployeeById(2)).Returns(employee);
+
+            EmployeesController employeeController = new EmployeesController(_mockBuildEmployeesModelServices.Object);
+
+            // Act
+            var employeeResult = employeeController.GetEmployee(employeeid);
+            var posRes = employeeResult as NotFoundResult;
+
+            // Assert
+            posRes.Should().NotBeNull();
         }
 
         [Fact]
@@ -70,7 +135,7 @@ namespace HumanResourceWebApis.Tests.Controllers
         }
 
         [Fact]
-        public void Get_Departments()
+        public void GetDepartmentsReturnsMultipleRecords()
         {
             // Arrange
             var DepartmentsList = EmployeeSampleTestData.DepartmentList;
@@ -99,7 +164,7 @@ namespace HumanResourceWebApis.Tests.Controllers
         }
 
         [Fact]
-        public void GetStatusShouldReturnFi()
+        public void GetStatusReturnsMultipleRecords()
         {
             // Arrange
             var statusList = EmployeeSampleTestData.StatusList;
