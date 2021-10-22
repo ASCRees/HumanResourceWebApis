@@ -31,7 +31,7 @@ The web apis use swagger to document and make them visible within a browser.
 7. The user may filter based upon Department and/or Status using the drop downs visible in the header.
 8. Altering the Total results per page value and clicking on refresh will cause the page to refresh and use that value to specify the maximum number of records on the page.
 9. Clicking Add will open a page to allow a new record to be entered.
-10. Clickin Edit will open the same page to edit the record.
+10. Clicking Edit will open the same page to edit the record.
 
 ## How this could be improved
 
