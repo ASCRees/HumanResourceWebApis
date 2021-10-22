@@ -35,6 +35,14 @@ The web apis use swagger to document and make them visible within a browser.
 2. Add functional testing using selenium
 3. Add a search function to search by name
 
+## Troubleshooting
+If comiling gives an error related to SQl server make sure there is not a SQL Server process already running. If so terminate it.
+
+## Screenshots
+![image](https://user-images.githubusercontent.com/28151071/138509265-4749a861-550d-4aaa-8e5a-0ad01fa5c243.png)
+
+![image](https://user-images.githubusercontent.com/28151071/138509364-060150f8-732f-453f-8c8f-4a058de7c8b2.png)
+
 
 
 
