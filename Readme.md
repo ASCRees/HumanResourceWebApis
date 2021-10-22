@@ -27,7 +27,11 @@ The web apis use swagger to document and make them visible within a browser.
 		   
 4. Start the project using F5.
 5. This will start both the web api's and the mvc project in two browser windows. 
-
+6. The Resource Name, Department Name and Status headers may be clicked on to sort by these fields. Sorting on Resource Name will sort by Surname only.
+7. The user may filter based upon Department and/or Status using the drop downs visible in the header.
+8. Altering the Total results per page value and clicking on refresh will cause the page to refresh and use that value to specify the maximum number of records on the page.
+9. Clicking Add will open a page to allow a new record to be entered.
+10. Clickin Edit will open the same page to edit the record.
 
 ## How this could be improved
 
