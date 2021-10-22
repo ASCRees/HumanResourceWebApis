@@ -10,6 +10,7 @@ it was required called DatabaseCreation.sql. If a seperate database was used the
 
 Unit testing is performed using XUnit and demonstrates the use of the MOQ framework. 
 
+The web apis use swagger to document and make them visible within a browser.
 
 
 ## Running the Application
@@ -17,12 +18,15 @@ Unit testing is performed using XUnit and demonstrates the use of the MOQ framew
 1. To run this open Visual Studio open the application in Visual Studio.
 2. In Package Manager console run "Update-package -reinstall". 
 3. Open the properties for the solution and set the two projects HumanResources and HumanResourcesWebApi to start.
-3. Amend the file .\HumanResourceWebApis\HumanResourceWebApis\App_Start\WebApiConfig.cs to change the path in the line to the location of the project.
+
+![image](https://user-images.githubusercontent.com/28151071/138508911-192b9bd6-b08b-490c-a1f2-c432c44d4392.png)
+
+5. Amend the file .\HumanResourceWebApis\HumanResourceWebApis\App_Start\WebApiConfig.cs to change the path in the line to the location of the project.
 
            AppDomain.CurrentDomain.SetData("DataDirectory", "C:\\Projects\\HumanResourceWebApis\\HumanResourcesWebApis.DataLayer\\");
 		   
 4. Start the project using F5.
-5. This will start both the web  api's and the mvc project in two browser windows. 
+5. This will start both the web api's and the mvc project in two browser windows. 
 
 
 ## How this could be improved
