@@ -1,11 +1,12 @@
-##Human Resource
+Human Resource
 --------------
 
 This is a simple MVC application that allows the user to view a list of employees in a sqlserver database. The user may filter and sort the returned records. Records may be added, updated or deleted from the view.
 
 This has been built in a set of layers using both a front end MVC project as well as a set of Web Apis that in turn use a service and datalayer.
 
-Access to the database is achieved via Entity Framework.
+Access to the database is achieved via Entity Framework. the database is included in the project as an attached MDF file. There is also a SQL script to create the database if
+it was required called DatabaseCreation.sql. If a seperate database was used then the connection string in the App.config will need to be amended to point to the relevant location.
 
 Unit testing is performed using XUnit and demonstrates the use of the MOQ framework. 
 
@@ -21,6 +22,7 @@ Unit testing is performed using XUnit and demonstrates the use of the MOQ framew
            AppDomain.CurrentDomain.SetData("DataDirectory", "C:\\Projects\\HumanResourceWebApis\\HumanResourcesWebApis.DataLayer\\");
 		   
 4. Start the project using F5.
+5. This will start both the web  api's and the mvc project in two browser windows. 
 
 
 ## How this could be improved
