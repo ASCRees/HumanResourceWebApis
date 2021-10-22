@@ -23,7 +23,6 @@ namespace HumanResourceWebApis
 
             StructuremapWebApi.Start();
             AppDomain.CurrentDomain.SetData("DataDirectory", "C:\\Projects\\HumanResourceWebApis\\HumanResourcesWebApis.DataLayer\\");
-
         }
     }
 }
