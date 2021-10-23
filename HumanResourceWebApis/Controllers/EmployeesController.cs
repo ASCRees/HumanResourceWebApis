@@ -25,7 +25,7 @@ namespace HumanResourceWebApis.Controllers
             _buildEmployeesModelServices = buildEmployeesModelServices;
         }
 
-        //GET: api/HumanResources
+        //GET: api/Employees
 
         public IQueryable<VwEmployeeViewModel> GetEmployees()
         {
@@ -33,7 +33,7 @@ namespace HumanResourceWebApis.Controllers
             return emps.AsQueryable();
         }
 
-        // GET: api/HumanResources/5
+        // GET: api/Employees/5
         [ResponseType(typeof(EmployeeViewModel))]
         public IHttpActionResult GetEmployee(int id)
         {
@@ -54,7 +54,7 @@ namespace HumanResourceWebApis.Controllers
             }
         }
 
-        // PUT: api/HumanResources/5
+        // PUT: api/Employees/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutEmployee(int id, EmployeeViewModel employee)
         {
@@ -82,7 +82,7 @@ namespace HumanResourceWebApis.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/HumanResources
+        // POST: api/Employees
         [ResponseType(typeof(EmployeeViewModel))]
         public IHttpActionResult PostEmployee(EmployeeViewModel employee)
         {
@@ -99,7 +99,7 @@ namespace HumanResourceWebApis.Controllers
             }
         }
 
-        // DELETE: api/HumanResources/5
+        // DELETE: api/Employees/5
         [ResponseType(typeof(EmployeeViewModel))]
         public IHttpActionResult DeleteEmployee(int id)
         {

@@ -18,7 +18,7 @@ namespace HumanResourceWebApis.Controllers
             _buildStatusModelServices = buildStatusModelServices;
         }
 
-        //GET: api/HumanResources
+        //GET: api/Status
 
         public IQueryable<StatusViewModel> GetStatus()
         {

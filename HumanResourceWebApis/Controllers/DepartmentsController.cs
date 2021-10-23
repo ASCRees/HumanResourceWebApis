@@ -26,7 +26,7 @@ namespace HumanResourceWebApis.Controllers
             _buildDepartmentsModelServices = buildDepartmentsModelServices;
         }
 
-        //GET: api/HumanResources
+        //GET: api/Departments
 
         public IQueryable<DepartmentViewModel> GetDepartments()
         {

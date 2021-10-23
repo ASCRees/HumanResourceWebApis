@@ -68,6 +68,7 @@ namespace Employees.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult AddOrEdit(EmployeeViewModel emp)
         {
             try
