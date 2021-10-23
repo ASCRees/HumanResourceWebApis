@@ -53,9 +53,10 @@ Note. Verify that the settings for the dependency resolution in the Defaultregis
 1. Add additional unit testing to both the web api and the main mvc project
 2. Add functional testing using selenium
 3. Add a search function to search by name
+4. Move the filtering from the ModelBuilder to the web api service layer enhancing the web apis
 
 ## Troubleshooting
-If compiling gives an error related to SQl server, make sure there is not a SQL Server process already running. If so terminate it.
+If compiling gives an error related to either SQl server or not being able to copy files due to them being in use, make sure there is not a SQL Server process already running. If so terminate it.
 
 ## Screenshots
 ![image](https://user-images.githubusercontent.com/28151071/138509265-4749a861-550d-4aaa-8e5a-0ad01fa5c243.png)
