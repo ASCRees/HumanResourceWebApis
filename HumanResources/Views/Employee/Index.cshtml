@@ -86,22 +86,12 @@
             };
 
         function SortData(sortorder) {
-            console.log(sortorder);
             CallFilterChange(sortorder, $('#ResultsPerPage').val(), $('#Status').val(), $('#Departments').val());
         };
 
         function CallFilterChange(sortorder,itemsperpage,status,department) {
-            console.log(sortorder);
-            console.log(itemsperpage);
-            console.log(status);
-            console.log(department);
-            /*CallFilterChange(sortorder, $('#ResultsPerPage').val(), $('#Status').val(), $('#Departments').val());*/
-
             window.location.href = `@Url.Action("Index","Employee")?page=1&sortorder=${sortorder}&itemsperpage=${itemsperpage}&status=${status}&department=${department}`;
         };
 
-        function CallDepartmentChange(id) {
-            console.log(id);
-        };
         </script>
     }
