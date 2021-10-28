@@ -28,9 +28,17 @@ namespace HumanResourceWebApis.Controllers
         //GET: api/Employees
 
         public IQueryable<VwEmployeeViewModel> GetEmployees()
+        {           
+                List<VwEmployeeViewModel> emps = Mapper.Map<List<VwEmployeeViewModel>>(_buildEmployeesModelServices.GetAllEmployees());
+                return emps.AsQueryable();        
+        }
+
+        [Route("api/EmployeesFiltered/{statusId?}/{departmentId?}")]
+        public IQueryable<VwEmployeeViewModel> GetEmployeesFiltered(int? statusId=null, int? departmentId=null)
         {
-            List<VwEmployeeViewModel> emps = Mapper.Map<List<VwEmployeeViewModel>>(_buildEmployeesModelServices.GetAllEmployees());
-            return emps.AsQueryable();
+            List<VwEmployeeViewModel> empsFiltered = Mapper.Map<List<VwEmployeeViewModel>>(_buildEmployeesModelServices.GetListOfEmployeesByFilter((int)statusId, (int)departmentId));
+            return empsFiltered.AsQueryable();
+
         }
 
         // GET: api/Employees/5

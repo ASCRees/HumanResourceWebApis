@@ -11,21 +11,12 @@ namespace HumanResources.ModelBuilder
 {
     public class EmployeeModelBuilder : IEmployeeModelBuilder
     {
-        public IEnumerable<VwEmployeeViewModel> BuildEmployeeList(string sortOrder, int? status, int? department)
+        public IEnumerable<VwEmployeeViewModel> BuildEmployeeList(string sortOrder, int? status=null, int? department=null)
         {
-            IEnumerable<VwEmployeeViewModel> empList;
-            HttpResponseMessage response = GlobalVariables.WebApiclient.GetAsync("Employees").Result;
-            empList = response.Content.ReadAsAsync<IEnumerable<VwEmployeeViewModel>>().Result;
 
-            if (status > 0)
-            {
-                empList = empList.Where(c => c.StatusID.Equals(status));
-            }
+            HttpResponseMessage response = GetEmployeeResponse(status, department);
 
-            if (department > 0)
-            {
-                empList = empList.Where(c => c.DepartmentID.Equals(department));
-            }
+            IEnumerable<VwEmployeeViewModel> empList = response.Content.ReadAsAsync<IEnumerable<VwEmployeeViewModel>>().Result;
 
             switch (sortOrder)
             {
@@ -48,6 +39,8 @@ namespace HumanResources.ModelBuilder
 
             return empList;
         }
+
+
 
         public SelectList CreateStatusFilterOptions(int? status)
         {
@@ -75,6 +68,16 @@ namespace HumanResources.ModelBuilder
             departmentList.AddRange(response.Content.ReadAsAsync<IEnumerable<DepartmentViewModel>>().Result.ToList());
 
             return new SelectList(departmentList, "DepartmentId", "DepartmentName", department);
+        }
+
+        private static HttpResponseMessage GetEmployeeResponse(int? status, int? department)
+        {
+            if (status == null && department == null)
+            {
+                return GlobalVariables.WebApiclient.GetAsync("Employees").Result;
+            }
+
+            return GlobalVariables.WebApiclient.GetAsync($"EmployeesFiltered/{status ?? 0}/{department ?? 0}").Result;
         }
     }
 }

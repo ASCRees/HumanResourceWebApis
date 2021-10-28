@@ -43,12 +43,12 @@ namespace HumanResourcesWebApis.Services
 
             if (statusId > 0)
             {
-                employeeQueryable.Where(c => c.StatusID.Equals(statusId));
+                employeeQueryable=employeeQueryable.Where(c => c.StatusID.Equals(statusId));
             }
 
             if (departmentId > 0)
             {
-                employeeQueryable.Where(c => c.DepartmentID.Equals(departmentId));
+                employeeQueryable=employeeQueryable.Where(c => c.DepartmentID.Equals(departmentId));
             }
 
             return employeeQueryable.ToList();
