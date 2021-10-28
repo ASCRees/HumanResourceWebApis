@@ -70,14 +70,14 @@ namespace HumanResources.ModelBuilder
             return new SelectList(departmentList, "DepartmentId", "DepartmentName", department);
         }
 
-        private static HttpResponseMessage GetEmployeeResponse(int? status, int? department)
+        private static HttpResponseMessage GetEmployeeResponse(int? status=null, int? department=null)
         {
             if (status == null && department == null)
             {
                 return GlobalVariables.WebApiclient.GetAsync("Employees").Result;
             }
 
-            return GlobalVariables.WebApiclient.GetAsync($"EmployeesFiltered/{status ?? 0}/{department ?? 0}").Result;
+            return GlobalVariables.WebApiclient.GetAsync($"EmployeesFiltered/{status}/{department}").Result;
         }
     }
 }
