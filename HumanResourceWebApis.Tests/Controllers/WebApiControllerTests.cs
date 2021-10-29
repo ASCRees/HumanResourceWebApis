@@ -1,20 +1,17 @@
 ﻿using FluentAssertions;
+using FluentAssertions.Execution;
+using HumanResourcesWebApis.DataLayer;
 using HumanResourcesWebApis.Services.Interfaces;
-using HumanResourceWebApis.App_Start;
 using HumanResourceWebApis.Controllers;
+using HumanResourceWebApis.Models;
 using HumanResourceWebApis.Tests.Base;
 using HumanResourceWebApis.Tests.Helper;
-using HumanResourceWebApis.Models;
 using Moq;
-using System.Diagnostics.CodeAnalysis;
-using Xunit;
-using System.Linq;
 using System.Collections.Generic;
-using HumanResourcesWebApis.DataLayer;
-using System.Web.Http;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Web.Http.Results;
-using FluentAssertions.Execution;
-using System.Net;
+using Xunit;
 
 namespace HumanResourceWebApis.Tests.Controllers
 {

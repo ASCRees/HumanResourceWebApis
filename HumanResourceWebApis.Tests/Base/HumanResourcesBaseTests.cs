@@ -1,5 +1,4 @@
-﻿using HumanResourceWebApis.App_Start;
-using System;
+﻿using System;
 
 namespace HumanResourceWebApis.Tests.Base
 {
