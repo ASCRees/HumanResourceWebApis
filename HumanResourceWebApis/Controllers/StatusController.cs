@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using HumanResourcesWebApis.Services.Interfaces;
+using HumanResourcesWebApis.Services.Standard.Interfaces;
 using HumanResourceWebApis.Models;
 using StructureMap;
 using System.Collections.Generic;

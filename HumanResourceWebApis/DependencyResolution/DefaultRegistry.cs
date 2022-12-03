@@ -17,8 +17,8 @@
 
 namespace HumanResourceWebApis.DependencyResolution
 {
-    using HumanResourcesWebApis.Services.Interfaces;
-    using HumanResourcesWebApis.Services;
+    using HumanResourcesWebApis.Services.Standard.Interfaces;
+    using HumanResourcesWebApis.Services.Standard;
     using StructureMap;
     using AutoMapper;
     using StructureMap.Configuration.DSL;

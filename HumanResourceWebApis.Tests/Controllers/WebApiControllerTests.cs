@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using FluentAssertions.Execution;
 using HumanResourcesWebApis.DataLayer;
-using HumanResourcesWebApis.Services.Interfaces;
+using HumanResourcesWebApis.Services.Standard.Interfaces;
 using HumanResourceWebApis.Controllers;
 using HumanResourceWebApis.Models;
 using HumanResourceWebApis.Tests.Base;

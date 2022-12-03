@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31729.503
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HumanResourcesWebApis", "HumanResourceWebApis\HumanResourcesWebApis.csproj", "{42104157-BEBF-4F0B-9F9D-3180F4CD1EA3}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HumanResourcesWebApis.Services", "HumanResourcesWebApis.Services\HumanResourcesWebApis.Services.csproj", "{5C8A55F8-4A45-4E87-BFD4-E5EFF257BD8A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HumanResources", "HumanResources\HumanResources.csproj", "{6A7CD56A-F0F8-42E2-8EC0-3DCE51C8D339}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HumanResourcesWebApis.Services.Standard", "HumanResourcesWebApis.Services.Standard\HumanResourcesWebApis.Services.Standard.csproj", "{749469EB-ABD2-4924-AA23-2A1042FEAEC8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{6A7CD56A-F0F8-42E2-8EC0-3DCE51C8D339}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A7CD56A-F0F8-42E2-8EC0-3DCE51C8D339}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A7CD56A-F0F8-42E2-8EC0-3DCE51C8D339}.Release|Any CPU.Build.0 = Release|Any CPU
+		{749469EB-ABD2-4924-AA23-2A1042FEAEC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{749469EB-ABD2-4924-AA23-2A1042FEAEC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{749469EB-ABD2-4924-AA23-2A1042FEAEC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{749469EB-ABD2-4924-AA23-2A1042FEAEC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

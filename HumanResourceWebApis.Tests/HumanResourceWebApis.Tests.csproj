@@ -146,9 +146,9 @@
       <Project>{964C6376-C808-4049-A827-1AB7C313C0A8}</Project>
       <Name>HumanResourcesWebApis.DataLayer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HumanResourcesWebApis.Services\HumanResourcesWebApis.Services.csproj">
-      <Project>{5C8A55F8-4A45-4E87-BFD4-E5EFF257BD8A}</Project>
-      <Name>HumanResourcesWebApis.Services</Name>
+    <ProjectReference Include="..\HumanResourcesWebApis.Services.Standard\HumanResourcesWebApis.Services.Standard.csproj">
+      <Project>{749469eb-abd2-4924-aa23-2a1042feaec8}</Project>
+      <Name>HumanResourcesWebApis.Services.Standard</Name>
     </ProjectReference>
     <ProjectReference Include="..\HumanResourceWebApis\HumanResourcesWebApis.csproj">
       <Project>{42104157-BEBF-4F0B-9F9D-3180F4CD1EA3}</Project>
